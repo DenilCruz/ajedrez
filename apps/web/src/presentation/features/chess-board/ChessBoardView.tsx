@@ -34,6 +34,8 @@ export interface ChessBoardViewProps {
   onFlipBoard?: () => void;
   onRestartMatch?: () => void;
   onOpenSetupModal?: () => void;
+  onDismissGameOver?: () => void;
+  onReturnToLobby?: () => void;
   onSquareSelect: (square: string) => void;
   onPieceDrop: (from: string, to: string) => boolean;
   onSelectPromotion: (piece: PromotionPiece) => void;
@@ -63,6 +65,8 @@ export function ChessBoardView({
   onFlipBoard,
   onRestartMatch,
   onOpenSetupModal,
+  onDismissGameOver,
+  onReturnToLobby,
   onSquareSelect,
   onPieceDrop,
   onSelectPromotion,
@@ -279,7 +283,31 @@ export function ChessBoardView({
               aria-live="polite"
               className="absolute inset-0 z-20 flex items-center justify-center bg-brand-background/80 p-4 backdrop-blur-xs"
             >
-              <div className="w-full max-w-sm rounded-2xl border border-brand-gold/50 bg-brand-surface/95 p-6 text-center shadow-2xl">
+              <div className="relative w-full max-w-sm rounded-2xl border border-brand-gold/50 bg-brand-surface/95 p-6 text-center shadow-2xl">
+                {onDismissGameOver ? (
+                  <button
+                    type="button"
+                    onClick={onDismissGameOver}
+                    aria-label="Ver tablero"
+                    title="Ver tablero"
+                    className="absolute top-3 right-3 rounded-lg border border-brand-border bg-brand-surfaceElevated p-1.5 text-neutral-400 transition hover:border-neutral-600 hover:text-white"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M6 18L18 6M6 6l12 12"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                ) : null}
                 <p className="font-editorial text-2xl font-bold text-white">
                   {gameOverBanner.title}
                 </p>
@@ -287,24 +315,36 @@ export function ChessBoardView({
                   {gameOverBanner.subtitle}
                 </p>
                 <div className="mt-5 flex items-center justify-center gap-3">
-                  {onRestartMatch ? (
+                  {onReturnToLobby ? (
                     <button
                       type="button"
-                      onClick={onRestartMatch}
-                      className="rounded-lg border border-brand-border bg-brand-surfaceElevated px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-neutral-600 hover:bg-neutral-800 sm:text-sm"
+                      onClick={onReturnToLobby}
+                      className="rounded-lg bg-brand-gold px-5 py-2 text-xs font-semibold text-neutral-950 transition hover:bg-brand-goldLight sm:text-sm"
                     >
-                      Reiniciar
+                      Volver a la sala
                     </button>
-                  ) : null}
-                  {onOpenSetupModal ? (
-                    <button
-                      type="button"
-                      onClick={onOpenSetupModal}
-                      className="rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-neutral-950 transition hover:bg-brand-goldLight sm:text-sm"
-                    >
-                      Nueva partida
-                    </button>
-                  ) : null}
+                  ) : (
+                    <>
+                      {onRestartMatch ? (
+                        <button
+                          type="button"
+                          onClick={onRestartMatch}
+                          className="rounded-lg border border-brand-border bg-brand-surfaceElevated px-4 py-2 text-xs font-semibold text-neutral-200 transition hover:border-neutral-600 hover:bg-neutral-800 sm:text-sm"
+                        >
+                          Reiniciar
+                        </button>
+                      ) : null}
+                      {onOpenSetupModal ? (
+                        <button
+                          type="button"
+                          onClick={onOpenSetupModal}
+                          className="rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-neutral-950 transition hover:bg-brand-goldLight sm:text-sm"
+                        >
+                          Nueva partida
+                        </button>
+                      ) : null}
+                    </>
+                  )}
                 </div>
               </div>
             </div>

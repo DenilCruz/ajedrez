@@ -87,7 +87,7 @@ export function MoveHistoryView({ history }: MoveHistoryViewProps) {
       <div
         ref={scrollContainerRef}
         data-testid="move-history-scroll"
-        className="max-h-60 min-h-32 overflow-y-auto p-3 lg:max-h-none lg:min-h-0 lg:flex-1"
+        className="gambit-scrollbar max-h-60 min-h-32 overflow-y-auto p-3 lg:max-h-none lg:min-h-0 lg:flex-1"
       >
         {rows.length === 0 ? (
           <div className="flex h-36 flex-col items-center justify-center px-4 text-center lg:h-full lg:min-h-28">

@@ -1,12 +1,24 @@
 import { BOARD_THEMES } from '@chess-platform/shared-domain';
 import type { BoardThemeId } from '@chess-platform/shared-domain';
+import type { BoardViewMode, PieceStyle3D } from './ChessBoard3DView';
 
 export interface ThemeSelectorProps {
   currentTheme: BoardThemeId;
   onSelectTheme: (theme: BoardThemeId) => void;
+  viewMode?: BoardViewMode;
+  onChangeViewMode?: (mode: BoardViewMode) => void;
+  pieceStyle3D?: PieceStyle3D;
+  onChangePieceStyle3D?: (style: PieceStyle3D) => void;
 }
 
-export function ThemeSelector({ currentTheme, onSelectTheme }: ThemeSelectorProps) {
+export function ThemeSelector({
+  currentTheme,
+  onSelectTheme,
+  viewMode = '2d',
+  onChangeViewMode,
+  pieceStyle3D = 'classic',
+  onChangePieceStyle3D,
+}: ThemeSelectorProps) {
   const themes = Object.values(BOARD_THEMES);
 
   return (
@@ -14,6 +26,87 @@ export function ThemeSelector({ currentTheme, onSelectTheme }: ThemeSelectorProp
       aria-label="Tema del tablero"
       className="shrink-0 rounded-xl border border-brand-border bg-brand-surface p-4"
     >
+      {onChangeViewMode ? (
+        <div className="mb-3.5 border-b border-brand-borderSubtle pb-3">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-xs font-semibold tracking-widest text-neutral-300 uppercase">
+              Modo de vista
+            </span>
+            <div
+              role="group"
+              aria-label="Alternar vista 2D o 3D"
+              className="inline-flex rounded-lg border border-brand-border bg-brand-background p-0.5"
+            >
+              <button
+                type="button"
+                data-view-mode="2d"
+                aria-pressed={viewMode === '2d'}
+                onClick={() => onChangeViewMode('2d')}
+                className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${
+                  viewMode === '2d'
+                    ? 'bg-brand-gold text-neutral-950'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                Vista 2D
+              </button>
+              <button
+                type="button"
+                data-view-mode="3d"
+                aria-pressed={viewMode === '3d'}
+                onClick={() => onChangeViewMode('3d')}
+                className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${
+                  viewMode === '3d'
+                    ? 'bg-brand-gold text-neutral-950'
+                    : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                Vista 3D
+              </button>
+            </div>
+          </div>
+
+          {viewMode === '3d' && onChangePieceStyle3D ? (
+            <div className="flex items-center justify-between pt-1">
+              <span className="text-[11px] font-medium tracking-wider text-neutral-400 uppercase">
+                Piezas 3D
+              </span>
+              <div
+                role="group"
+                aria-label="Estilo de piezas 3D"
+                className="inline-flex gap-1.5"
+              >
+                <button
+                  type="button"
+                  data-piece-style-3d="classic"
+                  aria-pressed={pieceStyle3D === 'classic'}
+                  onClick={() => onChangePieceStyle3D('classic')}
+                  className={`rounded-md border px-2.5 py-1 text-xs font-medium transition ${
+                    pieceStyle3D === 'classic'
+                      ? 'border-brand-gold bg-brand-surfaceElevated text-brand-goldLight'
+                      : 'border-brand-border bg-brand-surfaceElevated/50 text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  Clásico
+                </button>
+                <button
+                  type="button"
+                  data-piece-style-3d="egyptian"
+                  aria-pressed={pieceStyle3D === 'egyptian'}
+                  onClick={() => onChangePieceStyle3D('egyptian')}
+                  className={`rounded-md border px-2.5 py-1 text-xs font-medium transition ${
+                    pieceStyle3D === 'egyptian'
+                      ? 'border-brand-gold bg-brand-surfaceElevated text-brand-goldLight'
+                      : 'border-brand-border bg-brand-surfaceElevated/50 text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  Egipcio
+                </button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
       <div className="mb-3 flex items-center justify-between">
         <h2 className="text-xs font-semibold tracking-widest text-neutral-300 uppercase">
           Tema del tablero

@@ -42,3 +42,29 @@
   font-family: 'Playfair Display', Georgia, serif;
   letter-spacing: -0.02em;
 }
+
+.gambit-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #34343d transparent;
+  scrollbar-gutter: stable;
+}
+
+.gambit-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gambit-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 4px;
+}
+
+.gambit-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2d2d35;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease;
+}
+
+.gambit-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #8a6e46;
+}

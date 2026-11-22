@@ -1,3 +1,6 @@
+// Contracts
+export * from './domain/contracts/multiplayer.contract.js';
+
 // Entities
 export * from './domain/entities/match.entity.js';
 export * from './domain/entities/player.entity.js';
