@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-background: #0a0a0c;
+  --color-brand-surface: #121215;
+  --color-brand-surfaceElevated: #18181c;
+  --color-brand-border: #232328;
+  --color-brand-borderSubtle: #1d1d22;
+  --color-brand-gold: #c5a880;
+  --color-brand-goldLight: #e4d3ba;
+  --color-brand-goldDark: #8a6e46;
+  --color-brand-accentEmerald: #10b981;
+  --color-brand-accentCrimson: #ef4444;
+
+  --font-serif: 'Playfair Display', 'Cinzel', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --shadow-glow-gold: 0 0 25px -5px rgba(197, 168, 128, 0.15);
+  --shadow-glow-emerald: 0 0 20px -3px rgba(16, 185, 129, 0.25);
+  --shadow-board: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: #0a0a0c;
+    color: #e5e5e5;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.02em;
+}

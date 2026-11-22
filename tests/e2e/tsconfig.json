@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "typeRoots": ["../../node_modules/@types"],
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@chess-platform/shared-domain": ["../../packages/shared-domain/dist/index.d.ts"],
+      "@web/*": ["../../apps/web/src/*"],
+      "vitest": ["../../node_modules/vitest/dist/index.d.ts"],
+      "vitest/config": ["../../node_modules/vitest/config.d.ts"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}

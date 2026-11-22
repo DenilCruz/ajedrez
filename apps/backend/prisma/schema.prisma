@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// TODO: Completar campos y relaciones según requerimientos del dominio.
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+}
+
+model Match {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+}
+
+model MoveRecord {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+}
