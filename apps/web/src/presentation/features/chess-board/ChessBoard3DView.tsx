@@ -1129,9 +1129,9 @@ function EnvironmentModels({
     };
   }, [butterflyScene]);
 
-  const prepareFoliageClone = (sourceScene: THREE.Group): THREE.Group => {
-    const cloned = sourceScene.clone(true);
-    cloned.traverse((obj) => {
+  const prepareFoliageBase = (sourceScene: THREE.Group): THREE.Group => {
+    const base = sourceScene.clone(true);
+    base.traverse((obj) => {
       if (obj instanceof THREE.Mesh) {
         const materials = Array.isArray(obj.material)
           ? obj.material
@@ -1151,23 +1151,25 @@ function EnvironmentModels({
         obj.receiveShadow = true;
       }
     });
-    return cloned;
+    return base;
   };
+
+  const preparedOakBase = useMemo(() => prepareFoliageBase(oakTreeScene), [oakTreeScene]);
+  const preparedPineBase = useMemo(() => prepareFoliageBase(pineTreeScene), [pineTreeScene]);
+  const preparedBushBase = useMemo(() => prepareFoliageBase(bushScene), [bushScene]);
 
   const treeInstances = useMemo(() => {
     return TREE_PLACEMENTS.map((item, idx) => {
-      const source = item.kind === 'oak' ? oakTreeScene : pineTreeScene;
-      const cloned = prepareFoliageClone(source);
-      return { key: `tree-${item.kind}-${idx}`, cloned, ...item };
+      const base = item.kind === 'oak' ? preparedOakBase : preparedPineBase;
+      return { key: `tree-${item.kind}-${idx}`, cloned: base.clone(true), ...item };
     });
-  }, [oakTreeScene, pineTreeScene]);
+  }, [preparedOakBase, preparedPineBase]);
 
   const bushInstances = useMemo(() => {
     return BUSH_PLACEMENTS.map((item, idx) => {
-      const cloned = prepareFoliageClone(bushScene);
-      return { key: `bush-${idx}`, cloned, ...item };
+      return { key: `bush-${idx}`, cloned: preparedBushBase.clone(true), ...item };
     });
-  }, [bushScene]);
+  }, [preparedBushBase]);
 
   useFrame((_, delta) => {
     windTimeUniform.current.value += delta;
