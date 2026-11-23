@@ -8,4 +8,8 @@ export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom'],
   },
+  preview: {
+    host: true,
+    allowedHosts: true,
+  },
 })
